@@ -1,4 +1,4 @@
-# UM800L-00 Command Set
+# UM800L Command Set
 
 ## Index of Contents
 
