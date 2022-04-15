@@ -1,4 +1,4 @@
-# UHF880-00 Command Set
+# UM800L-00 Command Set
 
 ## Index of Contents
 
