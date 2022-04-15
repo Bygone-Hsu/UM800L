@@ -434,13 +434,16 @@ For the response of the example command, please refer to [GNetPlus's example](GN
 
 ## 5\. Error Code
 
-| Value | Description                  |
-|:-----:| ---------------------------- |
-| E0h   | Access Denied                |
-| E4h   | Illegal Query Code           |
-| E6h   | Overrun, Out of record count |
-| E7h   | CRC Error                    |
-| ECh   | Query Number no support      |
-| EDh   | Out Of Memory Range          |
-| EEh   | Address Number out of range  |
-| EFh   | Unknown                      |
+| Value | Name          | Description                                                           |
+|:-----:| ------------- | --------------------------------------------------------------------- |
+| 00h   | ERR NONE      | No error occured                                                      |
+| FFh   | ERR UNKNOWN   | Unknown error occured                                                 |
+| FEh   | ERR NOMEM     | Not enough memory to perform the requested operation                  |
+| FDh   | ERR BUSY      | Device or resource busy                                               |
+| FCh   | ERR IO        | Generic IO error                                                      |
+| FBh   | ERR TIMEOUT   | Error due to timeout                                                  |
+| FAh   | ERR REQUEST   | Invalid request or requested function can't be executed at the moment |
+| F9h   | ERR NOMSG     | No message of desired type                                            |
+| F8h   | ERR PARAM     | Parameter error                                                       |
+| F7h   | ERR PROTO     | Protocol error                                                        |
+| F6h   | ERR PROTO CRC | Protocol CRC16 check error                                            |
