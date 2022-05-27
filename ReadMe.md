@@ -1,4 +1,4 @@
-# UHF880-00
+# UM800L-00
 
 [GNetPlus Protocol](doc/GNetPlus%20Protocol.md)
 
