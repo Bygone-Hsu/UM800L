@@ -17,6 +17,9 @@
 
 ## 1. History
 
+### 2022/06/09
+* Fix wrong example of entering auto mode
+
 ### 2022/04/15
 
 * Initial Version
@@ -30,11 +33,11 @@ Symbols to this command set are as follows
 The RF385-00 commands digital data order uses **Big Endian**
 
 | Type | Bytes | Value Range     | Description              |
-|:----:|:-----:|:--------------- | ------------------------ |
-| s8   | 1     | -128 \~ 127     | 8 bit signed integer     |
-| s16  | 2     | -32768 \~ 32767 | 16 bit signed integer    |
-| u8   | 1     | 0 \~ 255        | 8 bit unsigned integer   |
-| u16  | 2     | 0 \~ 65535      | 16 bit  unsigned integer |
+| :--: | :---: | :-------------- | ------------------------ |
+|  s8  |   1   | -128 \~ 127     | 8 bit signed integer     |
+| s16  |   2   | -32768 \~ 32767 | 16 bit signed integer    |
+|  u8  |   1   | 0 \~ 255        | 8 bit unsigned integer   |
+| u16  |   2   | 0 \~ 65535      | 16 bit  unsigned integer |
 
 ## 4\. Commands
 
@@ -141,20 +144,20 @@ Request Code is 12h
 For the NAK response of the example command, please refer to [GNetPlus's example](GNetPlus%20Protocol.md#response-a-nak-package)
 
 * Enter Auto Mode
-  <br />`[Send 7 Bytes] Enter Auto Mode (10h: Code: Command)`
+  <br />`[Send 7 Bytes] Enter Auto Mode (12h: Code: Command)`
 
 | `Offset` | `00` | `01` | `02` | `03` | `04` | `05` | `06` | `07` | `08` | `09` | `0A` | `0B` | `0C` | `0D` | `0E` | `0F` | <div style='min-width:8em' align='center'>`ASCII`</div> |
 |:--------:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:------------------------------------------------------- |
-| `00`     | `01` | `00` | `10` | `01` | `00` | `71` | `00` |      |      |      |      |      |      |      |      |      | `.....q.`                                               |
+| `00`     | `01` | `00` | `12` | `01` | `00` | `B1` | `A1` |      |      |      |      |      |      |      |      |      | `.......`                                               |
 
 | `Offset` | `Bytes` | <div style='min-width:12em' align='center'>`Data`</div> | <div style='min-width:32em' align='center'>`Description`</div> |
 |:--------:|:-------:|:------------------------------------------------------- |:-------------------------------------------------------------- |
 | `00`     | `1`     | ` 01`                                                   | `SOH (Start of Heading)`                                       |
 | `01`     | `1`     | ` 00`                                                   | `Device Address`                                               |
-| `02`     | `1`     | ` 10`                                                   | `00h: Code: Set Working Mode`                                  |
+| `02`     | `1`     | ` 12`                                                   | `00h: Code: Change Working Mode`                               |
 | `03`     | `1`     | ` 01`                                                   | `Data Length`                                                  |
-| `04`     | `1`     | ` 00`                                                   | `00h: [Working Mode](#working-mode): Auto Mode`                |
-| `05`     | `2`     | ` 71 00`                                                | `CRC16`                                                        |
+| `04`     | `1`     | ` 00`                                                   | `00h`: [Working Mode](#working-mode): Auto Mode                |
+| `05`     | `2`     | ` B1 A1`                                                | `CRC16`                                                        |
 
 <br />`[Receive 7 Bytes] Enter Auto Mode Response (06h: Code: ACK)`
 
@@ -168,7 +171,7 @@ For the NAK response of the example command, please refer to [GNetPlus's example
 | `01`     | `1`     | ` FF`                                                   | `Device Address`                                               |
 | `02`     | `1`     | ` 06`                                                   | `06h: Code: ACK`                                               |
 | `03`     | `1`     | ` 01`                                                   | `Data Length`                                                  |
-| `04`     | `1`     | ` 00`                                                   | `00h: [Working Mode](#working-mode): Auto Mode`                |
+| `04`     | `1`     | ` 00`                                                   | `00h`: [Working Mode](#working-mode): Auto Mode                |
 | `05`     | `2`     | ` A1 D1`                                                | `CRC16`                                                        |
 
 * Enter Command Mode
@@ -184,7 +187,7 @@ For the NAK response of the example command, please refer to [GNetPlus's example
 | `01`     | `1`     | ` 00`                                                   | `Device Address`                                               |
 | `02`     | `1`     | ` 12`                                                   | `00h: Code: Change Working Mode`                               |
 | `03`     | `1`     | ` 01`                                                   | `Data Length`                                                  |
-| `04`     | `1`     | ` 01`                                                   | `01h: Working Mode: Command Mode`                              |
+| `04`     | `1`     | ` 01`                                                   | `01h`: [Working Mode](#working-mode): Command Mode             |
 | `05`     | `2`     | ` 71 60`                                                | `CRC16`                                                        |
 
 <br />`[Receive 7 Bytes] Enter Command Mode Response (06h: Code: ACK)`
@@ -199,7 +202,7 @@ For the NAK response of the example command, please refer to [GNetPlus's example
 | `01`     | `1`     | ` FF`                                                   | `Device Address`                                               |
 | `02`     | `1`     | ` 06`                                                   | `06h: Code: ACK`                                               |
 | `03`     | `1`     | ` 01`                                                   | `Data Length`                                                  |
-| `04`     | `1`     | ` 00`                                                   | `01h: Working Mode: Command Mode`                              |
+| `04`     | `1`     | ` 00`                                                   | `01h`: [Working Mode](#working-mode): Command Mode             |
 | `05`     | `2`     | ` A1 D1`                                                | `CRC16`                                                        |
 
 ## 4-3\. Read EEPROM
@@ -302,7 +305,7 @@ Request Code is 22h
 
 | Offset | Bytes | Type | Name    | Description                                                                                                                                                                                                                                                                                                                        |
 |:------:|:-----:|:----:| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0      | 2     | u16  | Address | Read [EEPROM Address](EEPROM%20Table.md#eeprom-table) (Big Endian)<br />Bit 0~14: EEPROM/Register Address please refer to [EEPROM Table](EEPROM%20Table.md#eeprom-table) <br /><br />Bit 15: Memory Option<br />0: EEPROM<br />1: Registers (Directly update the set value to Registers, and will force to enter the command mode) |
+| 0      | 2     | u16  | Address | Write [EEPROM Address](EEPROM%20Table.md#eeprom-table) (Big Endian)<br />Bit 0~14: EEPROM/Register Address please refer to [EEPROM Table](EEPROM%20Table.md#eeprom-table) <br /><br />Bit 15: Memory Option<br />0: EEPROM<br />1: Registers (Directly update the set value to Registers, and will force to enter the command mode) |
 | 1      | N     | u8   | Data    | Write data.                                                                                                                                                                                                                                                                                                                        |
 
 * Response
